@@ -1,0 +1,18 @@
+{
+  "name": "simulationbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "hardikdevmurari",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.964.0",
+    "axios": "^0.21.1",
+    "data-api-client": "^1.2.0",
+    "finnhub": "^1.2.5",
+    "node-stockly": "^1.0.11"
+  }
+}
