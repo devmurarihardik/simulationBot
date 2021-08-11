@@ -13,7 +13,7 @@ exports.purchaseStock = async({ userId, ticker, quantity, current }) =>{
 
 exports.getStockById = async({ userId, stockId}) =>{
     try {
-        const sql = `select * from users_stocks where user_id = :userId and id = :stockId;`;
+        const sql = `select * from users_stocks where user_id = :userId and id = :stockId::int;`;
         const { records } = await db.query(sql,{userId, stockId})
         return records[0] || null
     } catch (error) {
@@ -31,19 +31,31 @@ exports.getStockTickersByUserId = async({ userId }) =>{
     }
 }
 
-exports.deleteStockById = async(stockId, userId) =>{
+exports.getStocksUserId = async({ userId }) =>{
     try {
-        const sql = `delete from users_stocks where user_id = :userId and id = :stockId;`;
-        await db.query(sql,{userId, stockId})
-        return true
+        const sql = `select * from users_stocks where user_id = :userId`;
+        const { records } = await db.query(sql,{userId})
+        return records || null
     } catch (error) {
         return null;
     }
 }
 
-exports.updateStock = async(stockId, quantity) =>{
+exports.deleteStockById = async(stockId, userId) =>{
     try {
-        const sql = `update users_stocks set quantity = :quantity where id = :stockId;`;
+        const sql = `delete from users_stocks where user_id = :userId and id = :stockId::int;`;
+        await db.query(sql,{userId, stockId})
+        return true
+    } catch (error) {
+        console.log(error)
+        return null;
+    }
+}
+
+exports.updateStock = async(stockId, {quantity}) =>{
+    try {
+        console.log(stockId, quantity, '*****')
+        const sql = `update users_stocks set quantity = :quantity where id = :stockId::int;`;
         await db.query(sql,{quantity, stockId})
         return true
     } catch (error) {
@@ -51,7 +63,7 @@ exports.updateStock = async(stockId, quantity) =>{
     }
 }
 
-exports.deleteUsersAllStock = async(stockId) =>{
+exports.deleteUsersAllStock = async(userId) =>{
     try {
         const sql = `delete from users_stocks where user_id = :userId`;
         await db.query(sql,{userId})

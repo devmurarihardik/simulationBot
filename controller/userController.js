@@ -7,7 +7,7 @@ exports.getUserBalance = async(userId) =>{
         const addUser = await addUserAccount(userId);
         console.log(addUser)
         return {
-            message:`Your Balance :- ${addUser.balance}`
+            message:`Your Balance :- ${addUser.balance }`
         };
     }
     return {
